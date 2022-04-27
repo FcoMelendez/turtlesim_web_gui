@@ -4,7 +4,8 @@ import logging
 import threading
 import time
 
-turtleObject = "Hello"
+global turtleObject
+app = Flask(__name__)
 
 def start_context_broker_interface(name):
   while True:
@@ -17,8 +18,6 @@ def start_context_broker_interface(name):
     global turtleObject
     turtleObject = requests.request("GET", url, headers=headers, data=payload)
     time.sleep(0.5)
-
-app = Flask(__name__)
 
 @app.route("/static/<path:path>")
 def static_dir(path):
@@ -34,12 +33,16 @@ def teleoperation():
   
 @app.route("/turtleValues")
 def sendValues():
+  global turtleObject
   if hasattr(turtleObject,'text'):
     return turtleObject.text
-  else:
-    return "Turtlesim Web Gui : Waiting for turtlesim readings"
+  elif hasattr(turtleObject,'json()'):
+    return turtleObject.json()
+  return turtleObject
 
 if __name__ == "__main__":
+  global turtleObject
+  turtleObject = "empty"
   format = "%(asctime)s: %(message)s"
   logging.basicConfig(format=format, level=logging.INFO, datefmt="%H:%M:%S")
   logging.info("Main    : Creating the main thread of the OEE microservice")

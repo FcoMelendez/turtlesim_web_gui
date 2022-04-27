@@ -54,9 +54,6 @@ function draw() {
   ctx.rotate(theta_pose);
   ctx.translate(+x_pose-22, -y_pose-22);
   ctx.restore();
-  ctx.beginPath();
-  ctx.arc(150, 150, 105, 0, Math.PI * 2, false); // Earth orbit
-  ctx.stroke();
 
   window.requestAnimationFrame(draw);
 }
