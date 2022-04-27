@@ -17,7 +17,7 @@ function init() {
   canvas.width = 600;
   canvas.height = 600;
   ctx = document.getElementById('canvas').getContext('2d');
-  setInterval(readTurtleData, 200);
+  setInterval(readTurtleData, 300);
   window.requestAnimationFrame(draw);
   canvas.addEventListener('mousemove', function(evt) {
         var mousePos = getMousePos(canvas, evt);
@@ -35,6 +35,8 @@ function readTurtleData(){
   $.ajax(settings).done(function (response) {
     turtleData = JSON.parse(response); 
   });
+  
+  console.log(turtleData);
 }
 
 function draw() { 
@@ -42,10 +44,7 @@ function draw() {
   ctx.clearRect(0, 0, 600, 600); // clear canvas
   ctx.fillStyle = 'rgba(0, 0, 150, 0.4)';
   ctx.fillRect(50, 50, canvas.width-100, canvas.height-100);
-
-  // Moon
   ctx.save();
-  //ctx.translate(0, 28.5);
   var x_pose = 50-22+parseFloat(turtleData.x).toFixed(2)*500/11;
   var y_pose = 50-22+500-parseFloat(turtleData.y).toFixed(2)*500/11;
   ctx.translate(x_pose+22, y_pose+22);

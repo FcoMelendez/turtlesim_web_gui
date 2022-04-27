@@ -4,4 +4,4 @@
 # Flask Framework
 Flask==2.1.1
 # Requests
-requests==2.6.0
+requests==2.27.0
