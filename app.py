@@ -4,12 +4,12 @@ import logging
 import threading
 import time
 
-global turtleObject
+turtleObject = ""
 app = Flask(__name__)
 
 def start_context_broker_interface(name):
   while True:
-    url = "http://orion:1026/v2/entities/urn:ngsi-ld:Motion:001/attrs/turtlePose/value"
+    url = "http://orion:1026/v2/entities/urn:ngsiv2:ROS2System:Turtle001/attrs/turtlePose/value"
     payload={}
     headers = {
       'fiware-service': 'openiot',
@@ -41,7 +41,6 @@ def sendValues():
   return turtleObject
 
 if __name__ == "__main__":
-  global turtleObject
   turtleObject = "empty"
   format = "%(asctime)s: %(message)s"
   logging.basicConfig(format=format, level=logging.INFO, datefmt="%H:%M:%S")
